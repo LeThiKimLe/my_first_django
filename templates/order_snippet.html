@@ -1,0 +1,60 @@
+<!--Grid column-->
+<div class="col-md-12 mb-4">
+    <!-- Heading -->
+    <h4 class="d-flex align-items-center mb-3">
+      <span class="text-muted">Your cart</span>
+      <span class="badge rounded-pill badge-primary"> {{ order.items.count }}</span>
+    </h4>
+
+    <!-- Cart -->
+    <ul class="list-group mb-3">
+      {% for order_item in order.items.all %}
+      <li class="list-group-item d-flex justify-content-between">
+        <div>
+          <h6 class="my-0">{{ order_item.quantity }} x {{ order_item.item.title }}</h6>
+          <small class="text-muted">{{ order_item.item.description }}</small>
+        </div>
+        <span class="text-muted">{{ order_item.get_final_price }} VND</span>
+      </li>
+      {% endfor %}
+      <li class="list-group-item d-flex justify-content-between bg-light">
+        <div class="text-success">
+          <h6 class="my-0">Promo code</h6>
+          {% if order.coupon %}
+          <small> {{ order.coupon.code }}</small>
+          {% else %}
+          <small> -- </small>
+          {% endif %}
+        </div>
+        {% if order.coupon %}
+        <span class="text-success">-$ {{ order.coupon.amount }}</span>
+        {% else %}
+        <span class="text-success">-$0</span>
+        {% endif%}
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Total (USD)</span>
+        <strong>{{ order.get_total }}</strong>
+      </li>
+    </ul>
+    <!-- Cart -->
+
+    <!-- Promo code -->
+            
+    {% if DISPLAY_COUPON_FORM %}
+    <form class="card p-2" action="{% url 'core:add-coupon' %}" method="POST">
+        {% csrf_token %}
+      <div class="input-group mb-3">
+        <!-- <input type="text" class="form-control" placeholder="Promo code" aria-label="Promo code"
+          aria-describedby="button-addon2" /> -->
+        {{ couponform.code }}
+        <button class="btn btn-primary" type="submit" id="button-addon2" data-mdb-ripple-color="dark">
+          redeem
+        </button>
+      </div>
+      
+    </form>
+    {% endif %}
+    <!-- Promo code -->
+  </div>
+  <!--Grid column-->

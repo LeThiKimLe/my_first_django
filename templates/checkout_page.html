@@ -1,0 +1,126 @@
+{% extends "master2.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!--Main layout-->
+<main>
+    <div class="container">
+        <!-- Heading -->
+        <h2 class="my-5 text-center" style="margin-top: 6rem!important;">Checkout form</h2>
+
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-md-8 mb-4">
+                <!--Card-->
+                <div class="card p-4">
+                    
+                    <!--Grid row-->
+                    <div class="row mb-3">
+                        <!--Grid column-->
+                        <div class="col-md-6 mb-2">
+                            <!--firstName-->
+                            <div class="form-outline">
+                                <input type="text" id="typeText" class="form-control" />
+                                <label class="form-label" for="typeText">First name</label>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-6 mb-2">
+                            <!--lastName-->
+                            <div class="form-outline">
+                                <input type="text" id="typeText" class="form-control" />
+                                <label class="form-label" for="typeText">Last name</label>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                    <form method="POST" class="card-body" action="{% url 'core:checkout_view'%}">
+                        {% csrf_token %}
+                    <!--address-->
+                    <p class="mb-0">
+                        Address
+                    </p>
+                    <div class="form-outline mb-4">
+                        {{ form.street_address }}
+                    </div>
+
+                    <!--address-2-->
+                    <p class="mb-0">
+                        Address 2 (optional)
+                    </p>
+                    <div class="form-outline mb-4">
+                        {{ form.apartment_address }}
+                    </div>
+
+                    <!--Grid row-->
+                    <div class="row">
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-md-12 mb-4">
+                            <p class="mb-0">
+                                <label for="id_country">Country</label>
+                            </p>
+                            <div class="form-outline mb-4">
+                                {{ form.country }}
+                            </div>
+                        </div>              
+                        <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-lg-2 col-md-12 mb-4">
+                        </div>
+                        <!--Grid column-->
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <p class="mb-0">
+                                Zip
+                            </p>
+                            <div class="form-outline">
+                                {{ form.zip }}
+                            </div>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+
+                    <hr />
+                    <div class="form-check">
+                        <input {% if form.same_billing_address %} checked {% endif %} class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="same_billing_address" />
+                        <label class="form-check-label" for="flexCheckDefault">Shipping address is the same as my billing address</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input {% if form.same_billing_address %} checked {% endif %} class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="save_infor"/>
+                        <label class="form-check-label" for="flexCheckDefault">Save this information for next time</label>
+                    </div>
+
+                    <hr />
+
+                    <div class="my-3">
+                    {% for value, name in form.fields.payment_option.choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_option" id="{{value}}" value="{{ value }}" />
+                            <label class="form-check-label" for="{{value}}"> {{name}} </label>
+                        </div>
+                    {% endfor %}
+                    
+                    </div>
+                    
+                    <hr class="mb-4" />                    
+                    <button class="btn btn-primary" type="submit">Continue to checkout</button>
+                </form>
+                </div>
+                <!--/.Card-->
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-4 mb-4">
+               {% include "order_snippet.html" %}
+            </div>
+      <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+{% endblock %}

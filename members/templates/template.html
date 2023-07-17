@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+    
+</head>
+<link rel="stylesheet" href="{% static 'common.css' %}">
+<body>
+
+    {% include "myfirst.html" with me="TOBIAS" sponsor="W3SCHOOLS" %}
+
+    {% for x in fruits %}
+    <h1>{{x}}</h1>
+    {% endfor %}
+    <p>In views.py you can see what the fruits variable looks like </p>
+    {% if fruits == bought %}
+    <h1>Hello world</h1>
+    {% else %}
+    <h1> No way </h1>
+    {% endif %}
+
+    <ul>
+        {%for x in fruits %}
+        <li
+            {% if forloop.first %}
+            style="background-color: aqua;"
+            {% endif %}
+        >{{x}}</li>
+        {% endfor %}
+    </ul>
+
+    {% comment "đây là cái comment :V"%}
+    <h2>No comment here</h2>
+    {% endcomment %}
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+{% block title %}
+    My Main Page
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h1> My Project </h1>
+    <h3> Members </h3>
+    <p> Check out all <a href="members/"> members </a></p>
+    {% with firstname="KimLe" %}
+    <h1>Hello {{firstname}}</h1>
+    {% endwith %}
+    
+    {% if greeting %}
+    <h1>Bye nhe</h1>
+    {% else %}
+    <h1>No time</h1>
+    {% endif %}
+</div>
+{% endblock %}
